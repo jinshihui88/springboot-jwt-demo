@@ -89,10 +89,16 @@ logging:
 # SpringDoc OpenAPI 配置
 springdoc:
   api-docs:
-    path: /api-docs
+    path: /v3/api-docs
+    enabled: true
   swagger-ui:
     path: /swagger-ui.html
     enabled: true
+    # 配置正确的URL路径，考虑context-path
+    config-url: /api/v3/api-docs/swagger-config
+    url: /api/v3/api-docs
+  # 显示所有接口，包括需要认证的
+  show-actuator: true
 
 # 管理端点配置
 management:

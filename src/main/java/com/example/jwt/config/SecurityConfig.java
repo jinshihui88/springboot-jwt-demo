@@ -89,7 +89,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/**").permitAll()
                 
                 // 允许Swagger相关接口
-                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
+                .antMatchers(
+                    "/swagger-ui.html",
+                    "/swagger-ui/**", 
+                    "/swagger-ui/index.html",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs",
+                    "/v3/api-docs/swagger-config",
+                    "/swagger-resources/**",
+                    "/swagger-resources",
+                    "/webjars/**",
+                    "/doc.html",
+                    "/favicon.ico",
+                    "/configuration/ui",
+                    "/configuration/security"
+                ).permitAll()
                 
                 // 允许健康检查
                 .antMatchers("/actuator/health").permitAll()

@@ -50,3 +50,4 @@ Thumbs.db
 # 配置文件(如包含敏感信息)
 application-local.yml
 application-prod.yml
+/src/main/resources/rebel.xml

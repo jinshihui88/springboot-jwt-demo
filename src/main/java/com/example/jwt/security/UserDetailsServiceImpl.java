@@ -41,8 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 查询用户权限
         List<Permission> permissions = userMapper.findPermissionsByUserId(user.getId());
         
-        log.debug("加载用户详情: {}, 角色数: {}, 权限数: {}", 
-                username, roles.size(), permissions.size());
+        log.debug("加载用户详情: {}, 角色数: {}, 权限数: {}", username, roles.size(), permissions.size());
         
         return new UserDetailsImpl(user, roles, permissions);
     }
