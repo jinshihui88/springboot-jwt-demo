@@ -51,7 +51,7 @@ public class AuthService {
      * 用户登录
      * 
      * @param request 登录请求
-     * @return 登录响应
+     * @return LoginResponse 登录响应
      */
     @Transactional
     public LoginResponse login(LoginRequest request) {
