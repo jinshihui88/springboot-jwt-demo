@@ -39,6 +39,9 @@ public class AuthController {
 
     /**
      * 用户登录
+     *
+     * @param request 登录请求
+     * @return ApiResponse<LoginResponse> 登录响应
      */
     @PostMapping("/login")
     @Operation(summary = "用户登录", description = "用户通过用户名和密码进行登录")

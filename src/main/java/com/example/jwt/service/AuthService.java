@@ -147,6 +147,7 @@ public class AuthService {
     private void checkAccountLock(String username) {
         User user = userMapper.findByUsername(username);
         if (user != null && user.getLockTime() != null) {
+            log.info("用户账户已被锁定: {}", username);
             LocalDateTime lockTime = user.getLockTime();
             LocalDateTime unlockTime = lockTime.plusMinutes(30); // 锁定30分钟
             

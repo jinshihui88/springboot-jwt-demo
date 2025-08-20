@@ -72,17 +72,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             // 禁用CSRF
             .csrf().disable()
-            
             // 配置CORS
             .cors().configurationSource(corsConfigurationSource())
-            
             .and()
-            
             // 配置会话管理
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            
             .and()
-            
             // 配置请求授权
             .authorizeRequests()
                 // 允许认证相关接口
@@ -104,18 +99,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/configuration/ui",
                     "/configuration/security"
                 ).permitAll()
-                
                 // 允许健康检查
                 .antMatchers("/actuator/health").permitAll()
-                
                 // 允许OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                
                 // 其他请求需要认证
                 .anyRequest().authenticated()
-            
             .and()
-            
             // 添加JWT过滤器
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             
@@ -139,25 +129,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        
         // 允许的源
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-        
         // 允许的HTTP方法
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        
         // 允许的请求头
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        
         // 允许携带凭证
         configuration.setAllowCredentials(true);
-        
         // 预检请求的缓存时间
         configuration.setMaxAge(3600L);
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-        
         return source;
     }
 }
