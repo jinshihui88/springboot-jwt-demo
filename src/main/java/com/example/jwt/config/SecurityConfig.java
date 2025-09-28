@@ -80,13 +80,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             // 配置请求授权
             .authorizeRequests()
+                // 允许OPTIONS请求（放在最前面）
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 允许认证相关接口
                 .antMatchers("/auth/**").permitAll()
-                
+
                 // 允许Swagger相关接口
                 .antMatchers(
                     "/swagger-ui.html",
-                    "/swagger-ui/**", 
+                    "/swagger-ui/**",
                     "/swagger-ui/index.html",
                     "/v3/api-docs/**",
                     "/v3/api-docs",
@@ -101,8 +103,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 // 允许健康检查
                 .antMatchers("/actuator/health").permitAll()
-                // 允许OPTIONS请求
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                // 允许车辆模型查询接口
+                .antMatchers("/car-model/**").permitAll()
                 // 其他请求需要认证
                 .anyRequest().authenticated()
             .and()
