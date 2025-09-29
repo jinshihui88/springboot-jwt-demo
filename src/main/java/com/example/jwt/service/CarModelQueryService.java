@@ -2,10 +2,12 @@ package com.example.jwt.service;
 
 import com.example.jwt.dto.CarModelQueryRequest;
 import com.example.jwt.dto.CarModelQueryResponse;
+import com.example.jwt.util.ApiTestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -14,10 +16,12 @@ import reactor.core.publisher.Mono;
 public class CarModelQueryService {
 
     private final WebClient webClient;
+    private final ApiTestUtil apiTestUtil;
 
     @Autowired
-    public CarModelQueryService(WebClient webClient) {
+    public CarModelQueryService(WebClient webClient, ApiTestUtil apiTestUtil) {
         this.webClient = webClient;
+        this.apiTestUtil = apiTestUtil;
     }
 
     /**
@@ -40,11 +44,14 @@ public class CarModelQueryService {
                 .header(HttpHeaders.ACCEPT, "application/json")
                 .header(HttpHeaders.ACCEPT_LANGUAGE, "zh-CN,zh;q=0.9")
                 .header(HttpHeaders.CACHE_CONTROL, "no-cache")
-                .bodyValue(request)
+                //.bodyValue(request)
+                .body(BodyInserters.fromValue(request))
                 .retrieve()
                 .bodyToMono(CarModelQueryResponse.class)
                 .doOnSuccess(response -> {
                     log.info("接口调用成功，响应码: {}, 消息: {}", response.getCode(), response.getMsg());
+                    // 记录完整的响应结构用于调试
+                    //apiTestUtil.logResponseStructure(response);
                 })
                 .doOnError(error -> {
                     log.error("接口调用异常: {}", error.getMessage(), error);
